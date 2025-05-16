@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 3
   tags:
   - '"Player"'
+  - Crate0
+  - RoomTransport
   layers:
   - Default
   - TransparentFX

@@ -10,8 +10,14 @@ public class TopDownMovement : MonoBehaviour
     public Camera camera1;
     void OnTriggerEnter2D(Collider2D collision)
     {
-        camera1.transform.position = collision.transform.position + new Vector3(0,0,-10);
-        
+        if (collision.CompareTag("RoomTransport"))
+        {
+            camera1.transform.position = collision.transform.position + new Vector3(0,0,-10);
+        }
+        if (collision.CompareTag("Crate0"))
+        {
+            Destroy(collision.gameObject);
+        }
     }
     void Start()
     {
