@@ -20,6 +20,13 @@ TagManager:
   - CrateBlue
   - White
   - Pink
+  - CratePink
+  - CrateWhite
+  - CrateYellow
+  - CratePurple
+  - CrateCyan
+  - CrateRed
+  - CrateGreen
   layers:
   - Default
   - TransparentFX
