@@ -19,14 +19,11 @@ public class TopDownMovement : MonoBehaviour
     public Image slot1;
     public Image slot2;
     //prazdna a plna krabice
+    public Sprite crateBlue;
     public Sprite empty;
     public Sprite full;
-    //policka 1
-    public GameObject shelf1;
-    private SpriteRenderer sprite_Renderer1;
-    //policka 2
-    public GameObject shelf2;
-    private SpriteRenderer sprite_Renderer2;
+    //sprite renderers
+    private SpriteRenderer sprite_RendererBlue;
 
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -39,10 +36,10 @@ public class TopDownMovement : MonoBehaviour
         }
         
         //nabirani krabice
-        if (collision.CompareTag("Crate1"))
+        if (collision.CompareTag("CrateBlue"))
         {
             Destroy(collision.gameObject);
-            slot1.sprite = full;
+            slot1.sprite = crateBlue;
             slot1.color = Color.white;
         }
         if (collision.CompareTag("Crate2"))
@@ -52,12 +49,12 @@ public class TopDownMovement : MonoBehaviour
             slot2.color = Color.white;
         }
         //odevzdani krabice
-       if (collision.CompareTag("Blue") && slot1.sprite == full)
+       if (collision.CompareTag("Blue") && slot1.sprite == crateBlue)
         {
             slot1.sprite = empty;
-            sprite_Renderer2 = collision.GetComponent<SpriteRenderer>();
-            sprite_Renderer2.sprite = full;
-            sprite_Renderer2.color = Color.white;
+            sprite_RendererBlue = collision.GetComponent<SpriteRenderer>();
+            sprite_RendererBlue.sprite = crateBlue;
+            sprite_RendererBlue.color = Color.white;
 
         }
     }
@@ -68,14 +65,10 @@ public class TopDownMovement : MonoBehaviour
         Color1 = Color.blue;
         Color2 = Color.green;
         //box 1 
-        sprite_Renderer1 = shelf1.GetComponent<SpriteRenderer>();
         slot1.sprite = empty;
-        sprite_Renderer1.color = Color1;
         slot1.color = Color1;
         //box 2
-        sprite_Renderer2 = shelf2.GetComponent<SpriteRenderer>();
         slot2.sprite = empty;
-        sprite_Renderer2.color = Color2;
         slot2.color = Color2;
     }
 

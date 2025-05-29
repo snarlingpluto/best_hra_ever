@@ -7,7 +7,6 @@ TagManager:
   - '"Player"'
   - Crate0
   - RoomTransport
-  - Shelf1
   - Shelf2
   - Crate1
   - Crate2
@@ -20,6 +19,7 @@ TagManager:
   - Orange
   - Purple
   - Empty
+  - CrateBlue
   layers:
   - Default
   - TransparentFX
