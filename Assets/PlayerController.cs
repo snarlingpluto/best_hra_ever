@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +6,8 @@ public class TopDownMovement : MonoBehaviour
 {
     //pohyb hrace
     public float moveSpeed = 5f;
+    public float rotationSpeed;
+
     private Rigidbody2D rb;
     private Vector2 movement;
     //prepinani kamery
@@ -33,8 +34,10 @@ public class TopDownMovement : MonoBehaviour
         //zmena mistnosti
         if (collision.CompareTag("RoomTransport"))
         {
+            camera1.transform.position = collision.transform.position + new Vector3(0,0,-10);
             camera1.transform.position = collision.transform.position + new Vector3(0, 0, -10);
         }
+        
         //nabirani krabice
         if (collision.CompareTag("Crate1"))
         {
@@ -49,18 +52,10 @@ public class TopDownMovement : MonoBehaviour
             slot2.color = Color.white;
         }
         //odevzdani krabice
-        if (collision.CompareTag("Shelf1") && slot1.sprite == full) 
+       if (collision.CompareTag("Blue") && slot1.sprite == full)
         {
             slot1.sprite = empty;
-            sprite_Renderer1 = shelf1.GetComponent<SpriteRenderer>();
-            sprite_Renderer1.sprite = full;
-            sprite_Renderer1.color = Color.white;
-
-        }
-        if (collision.CompareTag("Shelf2") && slot2.sprite == full)
-        {
-            slot2.sprite = empty;
-            sprite_Renderer2 = shelf2.GetComponent<SpriteRenderer>();
+            sprite_Renderer2 = collision.GetComponent<SpriteRenderer>();
             sprite_Renderer2.sprite = full;
             sprite_Renderer2.color = Color.white;
 
@@ -86,10 +81,16 @@ public class TopDownMovement : MonoBehaviour
 
     void Update()
     {
-        // Get input
         movement.x = Input.GetAxisRaw("Horizontal"); // A/D or Left/Right
         movement.y = Input.GetAxisRaw("Vertical");   // W/S or Up/Down
         movement = movement.normalized; // To prevent faster diagonal movement
+
+        if (movement != Vector2.zero)
+        {
+            Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, movement);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+        }
+
     }
 
     void FixedUpdate()

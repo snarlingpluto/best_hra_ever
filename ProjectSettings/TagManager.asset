@@ -11,6 +11,15 @@ TagManager:
   - Shelf2
   - Crate1
   - Crate2
+  - Red
+  - Green
+  - Blue
+  - Yellow
+  - Magenta
+  - Cyan
+  - Orange
+  - Purple
+  - Empty
   layers:
   - Default
   - TransparentFX
