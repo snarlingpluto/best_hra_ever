@@ -133,7 +133,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 196478937}
-  - component: {fileID: 196478938}
   - component: {fileID: 196478939}
   m_Layer: 0
   m_Name: Room_0_0
@@ -158,18 +157,6 @@ Transform:
   - {fileID: 1807711122}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &196478938
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 196478936}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b432080a1f45e14a8e385f90d2d99a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &196478939
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6536,11 +6523,11 @@ MonoBehaviour:
   spriteGreen: {fileID: -5202931320459354142, guid: f89fa853387dce84bb408266f8320792, type: 3}
   spriteBlue: {fileID: 6678347035621376754, guid: d633c31705a1ffd49a53a110917144ea, type: 3}
   spriteYellow: {fileID: 4889173615261959219, guid: c5581be78eb752a4b869da418c1b8b5f, type: 3}
-  spritePurple: {fileID: -3909716901951986375, guid: 9f8d6c991deb1354db6edb066f9523a5, type: 3}
-  spriteOrange: {fileID: -3909716901951986375, guid: 9f8d6c991deb1354db6edb066f9523a5, type: 3}
-  spriteCyan: {fileID: -3909716901951986375, guid: 9f8d6c991deb1354db6edb066f9523a5, type: 3}
-  spriteMagenta: {fileID: -3909716901951986375, guid: 9f8d6c991deb1354db6edb066f9523a5, type: 3}
-  emptySprite: {fileID: 3924281039018905681, guid: c2aa5ab60d5b3b74a9d8e9e034b52d30, type: 3}
+  spritePurple: {fileID: 4479287004057805570, guid: ee17f4c560f5c024eb8a294c0b48ce62, type: 3}
+  spriteWhite: {fileID: -5298263113455871098, guid: 7b347fd18bb1ddb42b0f54d250fefbf4, type: 3}
+  spriteCyan: {fileID: -2163582774935881216, guid: 214f07c204b3596428d720ee4691ab8c, type: 3}
+  spritePink: {fileID: 4348835814570412848, guid: 80bd3df000ac6f84dbb94a237bd2fa8b, type: 3}
+  emptySprite: {fileID: -3909716901951986375, guid: 9f8d6c991deb1354db6edb066f9523a5, type: 3}
 --- !u!4 &1922195493
 Transform:
   m_ObjectHideFlags: 0

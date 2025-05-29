@@ -13,9 +13,9 @@ public class SlotManagerColorSprites : MonoBehaviour
     public Sprite spriteBlue;
     public Sprite spriteYellow;
     public Sprite spritePurple;
-    public Sprite spriteOrange;
+    public Sprite spriteWhite;
     public Sprite spriteCyan;
-    public Sprite spriteMagenta;
+    public Sprite spritePink;
 
     [Header("Empty Sprite")]
     public Sprite emptySprite;
@@ -37,9 +37,9 @@ public class SlotManagerColorSprites : MonoBehaviour
             spriteBlue,
             spriteYellow,
             spritePurple,
-            spriteOrange,
+            spriteWhite,
             spriteCyan,
-            spriteMagenta
+            spritePink
         };
 
         for (int i = 0; i < 8; i++)
@@ -99,20 +99,20 @@ public class SlotManagerColorSprites : MonoBehaviour
                 slot.tag = "Purple";
                 Debug.Log($"Slot {i + 1} is Purple.");
             }
-            else if (sprite == spriteOrange)
+            else if (sprite == spriteWhite)
             {
-                slot.tag = "Orange";
-                Debug.Log($"Slot {i + 1} is Orange.");
+                slot.tag = "White";
+                Debug.Log($"Slot {i + 1} is White.");
             }
             else if (sprite == spriteCyan)
             {
                 slot.tag = "Cyan";
                 Debug.Log($"Slot {i + 1} is Cyan.");
             }
-            else if (sprite == spriteMagenta)
+            else if (sprite == spritePink)
             {
-                slot.tag = "Magenta";
-                Debug.Log($"Slot {i + 1} is Magenta.");
+                slot.tag = "Pink";
+                Debug.Log($"Slot {i + 1} is Pink.");
             }
             else
             {

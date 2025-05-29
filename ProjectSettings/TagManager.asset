@@ -14,12 +14,12 @@ TagManager:
   - Green
   - Blue
   - Yellow
-  - Magenta
   - Cyan
-  - Orange
   - Purple
   - Empty
   - CrateBlue
+  - White
+  - Pink
   layers:
   - Default
   - TransparentFX
