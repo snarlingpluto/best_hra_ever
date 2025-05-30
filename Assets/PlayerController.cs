@@ -1,18 +1,18 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class TopDownMovement : MonoBehaviour
 {
-    //pohyb hrace
     public float moveSpeed = 5f;
     public float rotationSpeed;
 
     private Rigidbody2D rb;
     private Vector2 movement;
-    //prepinani kamery
+
     public Camera camera1;
-    //ui
+
     public Image slotBlue;
     public Image slotGreen;
     public Image slotWhite;
@@ -20,18 +20,18 @@ public class TopDownMovement : MonoBehaviour
     public Image slotRed;
     public Image slotCyan;
     public Image slotYellow;
-    public Image slotPurple;
-    //prazdna a plna krabice
+    public Image slotOrange;
+
     public Sprite crateBlue;
     public Sprite crateGreen;
     public Sprite crateYellow;
     public Sprite crateCyan;
     public Sprite cratePink;
-    public Sprite cratePurple;
+    public Sprite crateOrange;
     public Sprite crateWhite;
     public Sprite crateRed;
     public Sprite empty;
-    //sprite renderers
+
     private SpriteRenderer sprite_RendererBlue;
     private SpriteRenderer sprite_RendererWhite;
     private SpriteRenderer sprite_RendererCyan;
@@ -41,171 +41,130 @@ public class TopDownMovement : MonoBehaviour
     private SpriteRenderer sprite_RendererPurple;
     private SpriteRenderer sprite_RendererPink;
 
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        //zmena mistnosti
-        if (collision.CompareTag("RoomTransport"))
-        {
-            camera1.transform.position = collision.transform.position + new Vector3(0, 0, -10);
-        }
+    // ✅ crate tracking
+    private int currentCrates = 0;
+    public const int maxCrates = 4;
 
-        //nabirani krabice
-        if (collision.CompareTag("CrateBlue"))
-        {
-            Destroy(collision.gameObject);
-            slotBlue.sprite = crateBlue;
-            slotBlue.color = Color.white;
-        }
-        if (collision.CompareTag("CrateGreen"))
-        {
-            Destroy(collision.gameObject);
-            slotGreen.sprite = crateGreen;
-            slotGreen.color = Color.white;
-        }
-        if (collision.CompareTag("CrateWhite"))
-        {
-            Destroy(collision.gameObject);
-            slotWhite.sprite = crateWhite;
-            slotWhite.color = Color.white;
-        }
-        if (collision.CompareTag("CratePink"))
-        {
-            Destroy(collision.gameObject);
-            slotPink.sprite = cratePink;
-            slotPink.color = Color.white;
-        }
-        if (collision.CompareTag("CrateYellow"))
-        {
-            Destroy(collision.gameObject);
-            slotYellow.sprite = crateYellow;
-            slotYellow.color = Color.white;
-        }
-        if (collision.CompareTag("CrateCyan"))
-        {
-            Destroy(collision.gameObject);
-            slotCyan.sprite = crateCyan;
-            slotCyan.color = Color.white;
-        }
-        if (collision.CompareTag("CratePurple"))
-        {
-            Destroy(collision.gameObject);
-            slotPurple.sprite = cratePurple;
-            slotPurple.color = Color.white;
-        }
-        if (collision.CompareTag("CrateRed"))
-        {
-            Destroy(collision.gameObject);
-            slotRed.sprite = crateRed;
-            slotRed.color = Color.white;
-        }
-
-
-        //odevzdani krabice
-        if (collision.CompareTag("Blue") && slotBlue.sprite == crateBlue)
-        {
-            slotBlue.sprite = empty;
-            sprite_RendererBlue = collision.GetComponent<SpriteRenderer>();
-            sprite_RendererBlue.sprite = crateBlue;
-            sprite_RendererBlue.color = Color.white;
-        }
-        if (collision.CompareTag("Cyan") && slotCyan.sprite == crateCyan)
-        {
-            slotCyan.sprite = empty;
-            sprite_RendererCyan = collision.GetComponent<SpriteRenderer>();
-            sprite_RendererCyan.sprite = crateCyan;
-            sprite_RendererCyan.color = Color.white;
-        }
-        if (collision.CompareTag("Green") && slotGreen.sprite == crateGreen)
-        {
-            slotGreen.sprite = empty;
-            sprite_RendererGreen = collision.GetComponent<SpriteRenderer>();
-            sprite_RendererGreen.sprite = crateGreen;
-            sprite_RendererGreen.color = Color.white;
-        }
-        if (collision.CompareTag("Purple") && slotPurple.sprite == cratePurple)
-        {
-            slotPurple.sprite = empty;
-            sprite_RendererPurple = collision.GetComponent<SpriteRenderer>();
-            sprite_RendererPurple.sprite = cratePurple;
-            sprite_RendererPurple.color = Color.white;
-        }
-        if (collision.CompareTag("Red") && slotRed.sprite == crateRed)
-        {
-            slotRed.sprite = empty;
-            sprite_RendererRed = collision.GetComponent<SpriteRenderer>();
-            sprite_RendererRed.sprite = crateRed;
-            sprite_RendererRed.color = Color.white;
-        }
-        if (collision.CompareTag("White") && slotWhite.sprite == crateWhite)
-        {
-            slotWhite.sprite = empty;
-            sprite_RendererWhite = collision.GetComponent<SpriteRenderer>();
-            sprite_RendererWhite.sprite = crateWhite;
-            sprite_RendererWhite.color = Color.white;
-        }
-        if (collision.CompareTag("Pink") && slotPink.sprite == cratePink)
-        {
-            slotPink.sprite = empty;
-            sprite_RendererPink = collision.GetComponent<SpriteRenderer>();
-            sprite_RendererPink.sprite = cratePink;
-            sprite_RendererPink.color = Color.white;
-        }
-        if (collision.CompareTag("Yellow") && slotYellow.sprite == crateYellow)
-        {
-            slotYellow.sprite = empty;
-            sprite_RendererYellow = collision.GetComponent<SpriteRenderer>();
-            sprite_RendererYellow.sprite = crateYellow;
-            sprite_RendererYellow.color = Color.white;
-
-        }
-    }
+    private Dictionary<string, Image> slotMap;
+    private Dictionary<string, Sprite> crateMap;
+    private Dictionary<string, System.Action<Collider2D>> spriteSetters;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
 
-        slotBlue.sprite = empty;
-        slotBlue.color = Color.blue;
+        slotMap = new Dictionary<string, Image> {
+            { "Blue", slotBlue },
+            { "Green", slotGreen },
+            { "White", slotWhite },
+            { "Pink", slotPink },
+            { "Red", slotRed },
+            { "Cyan", slotCyan },
+            { "Yellow", slotYellow },
+            { "Orange", slotOrange }
+        };
 
-        slotGreen.sprite = empty;
-        slotGreen.color = Color.green;
+        crateMap = new Dictionary<string, Sprite> {
+            { "Blue", crateBlue },
+            { "Green", crateGreen },
+            { "White", crateWhite },
+            { "Pink", cratePink },
+            { "Red", crateRed },
+            { "Cyan", crateCyan },
+            { "Yellow", crateYellow },
+            { "Orange", crateOrange }
+        };
 
-        slotCyan.color = Color.cyan;
-        slotCyan.sprite = empty;
+        spriteSetters = new Dictionary<string, System.Action<Collider2D>> {
+            { "Blue", col => sprite_RendererBlue = col.GetComponent<SpriteRenderer>() },
+            { "Green", col => sprite_RendererGreen = col.GetComponent<SpriteRenderer>() },
+            { "White", col => sprite_RendererWhite = col.GetComponent<SpriteRenderer>() },
+            { "Pink", col => sprite_RendererPink = col.GetComponent<SpriteRenderer>() },
+            { "Red", col => sprite_RendererRed = col.GetComponent<SpriteRenderer>() },
+            { "Cyan", col => sprite_RendererCyan = col.GetComponent<SpriteRenderer>() },
+            { "Yellow", col => sprite_RendererYellow = col.GetComponent<SpriteRenderer>() },
+            { "Orange", col => sprite_RendererPurple = col.GetComponent<SpriteRenderer>() }
+        };
 
-        slotPink.color = Color.magenta;
-        slotPink.sprite = empty;
+        foreach (var kvp in slotMap)
+        {
+            kvp.Value.sprite = empty;
+            kvp.Value.color = GetSlotColor(kvp.Key);
+        }
 
-        slotPurple.color = new Color(0.5f, 0f, 0.5f);
-        slotPurple.sprite = empty;
+        currentCrates = 0;
+    }
 
-        slotRed.color = Color.red;
-        slotRed.sprite = empty;
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("RoomTransport"))
+        {
+            camera1.transform.position = collision.transform.position + new Vector3(0, 0, -10);
+            return;
+        }
 
-        slotWhite.color = Color.white;
-        slotWhite.sprite = empty;
+        foreach (var color in slotMap.Keys)
+        {
+            // ✅ PICKUP logic
+            if (collision.CompareTag($"Crate{color}"))
+            {
+                if (currentCrates >= maxCrates || slotMap[color].sprite != empty)
+                    return;
 
-        slotYellow.color = Color.yellow;
-        slotYellow.sprite = empty;
+                Destroy(collision.gameObject);
+                slotMap[color].sprite = crateMap[color];
+                slotMap[color].color = Color.white;
+                currentCrates++;
+                return;
+            }
+
+            // ✅ DELIVERY logic
+            if (collision.CompareTag(color) && slotMap[color].sprite == crateMap[color])
+            {
+                slotMap[color].sprite = empty;
+                slotMap[color].color = GetSlotColor(color);
+                spriteSetters[color](collision);
+                SpriteRenderer renderer = collision.GetComponent<SpriteRenderer>();
+                renderer.sprite = crateMap[color];
+                renderer.color = Color.white;
+                currentCrates--;
+                return;
+            }
+        }
     }
 
     void Update()
     {
-        movement.x = Input.GetAxisRaw("Horizontal"); // A/D or Left/Right
-        movement.y = Input.GetAxisRaw("Vertical");   // W/S or Up/Down
-        movement = movement.normalized; // To prevent faster diagonal movement
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
+        movement = movement.normalized;
 
         if (movement != Vector2.zero)
         {
             Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, movement);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
         }
-
     }
 
     void FixedUpdate()
     {
-        // Apply movement
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+    }
+
+    // ✅ Utility to restore slot color
+    private Color GetSlotColor(string color)
+    {
+        return color switch
+        {
+            "Blue" => Color.blue,
+            "Green" => Color.green,
+            "White" => Color.white,
+            "Pink" => Color.magenta,
+            "Red" => Color.red,
+            "Cyan" => Color.cyan,
+            "Yellow" => Color.yellow,
+            "Orange" => new Color(0.5f, 0f, 0.5f),
+            _ => Color.gray
+        };
     }
 }

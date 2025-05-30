@@ -12,7 +12,7 @@ public class SlotManagerColorSprites : MonoBehaviour
     public Sprite spriteGreen;
     public Sprite spriteBlue;
     public Sprite spriteYellow;
-    public Sprite spritePurple;
+    public Sprite spriteOrange;
     public Sprite spriteWhite;
     public Sprite spriteCyan;
     public Sprite spritePink;
@@ -36,7 +36,7 @@ public class SlotManagerColorSprites : MonoBehaviour
             spriteGreen,
             spriteBlue,
             spriteYellow,
-            spritePurple,
+            spriteOrange,
             spriteWhite,
             spriteCyan,
             spritePink
@@ -94,9 +94,9 @@ public class SlotManagerColorSprites : MonoBehaviour
                 slot.tag = "Yellow";
                 Debug.Log($"Slot {i + 1} is Yellow.");
             }
-            else if (sprite == spritePurple)
+            else if (sprite == spriteOrange)
             {
-                slot.tag = "Purple";
+                slot.tag = "Orange";
                 Debug.Log($"Slot {i + 1} is Purple.");
             }
             else if (sprite == spriteWhite)

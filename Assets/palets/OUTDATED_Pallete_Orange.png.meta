@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 15bf30a0ef7128944993ab8f179157c7
+guid: 77129154beee1bd479b1d3ba1b86cff5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4842502818191331096
-    second: OUTDATEDCrate_Purple_0
+      213: -2000626146266616862
+    second: OUTDATED_Pallete_Orange_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,7 +113,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: OUTDATEDCrate_Purple_0
+      name: OUTDATED_Pallete_Orange_0
       rect:
         serializedVersion: 2
         x: 0
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8e0b0e1f759fbccb0800000000000000
-      internalID: -4842502818191331096
+      spriteID: 2eb6b67ae195c34e0800000000000000
+      internalID: -2000626146266616862
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      OUTDATEDCrate_Purple_0: -4842502818191331096
+      OUTDATED_Pallete_Orange_0: -2000626146266616862
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -508,13 +508,13 @@ MonoBehaviour:
   slotRed: {fileID: 2018752204}
   slotCyan: {fileID: 1392678265}
   slotYellow: {fileID: 1296606998}
-  slotPurple: {fileID: 1758700545}
+  slotOrange: {fileID: 1758700545}
   crateBlue: {fileID: 4189820530307012786, guid: 6d9e02b6521212240bf1bb9bc1ae148d, type: 3}
   crateGreen: {fileID: -3422669458087411644, guid: 854bca325fd32df44bb9127cfe1ff34e, type: 3}
   crateYellow: {fileID: 3741287532434954284, guid: 9d07e9ebdee8a95439cecf6daf5478e6, type: 3}
   crateCyan: {fileID: -7912774097408465000, guid: 60a15c2c42798834396953fc72c00265, type: 3}
   cratePink: {fileID: -7606649316139266335, guid: cb6fb42d65551554ea5e0bed2cb8c3c1, type: 3}
-  cratePurple: {fileID: -4842502818191331096, guid: 15bf30a0ef7128944993ab8f179157c7, type: 3}
+  crateOrange: {fileID: -1151476768703992692, guid: 7f833ee1bc8c9624ba75f42d240db423, type: 3}
   crateWhite: {fileID: -2114171593591883785, guid: 14281101dbae0ce45870148f21df6e27, type: 3}
   crateRed: {fileID: -2025042702890651448, guid: 788097b700e11ca41a3fde714684c057, type: 3}
   empty: {fileID: 3924281039018905681, guid: c2aa5ab60d5b3b74a9d8e9e034b52d30, type: 3}
@@ -4559,8 +4559,8 @@ GameObject:
   - component: {fileID: 1457790425}
   - component: {fileID: 1457790424}
   m_Layer: 0
-  m_Name: CratePurple
-  m_TagString: CratePurple
+  m_Name: CrateOrange
+  m_TagString: CrateOrange
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4670,7 +4670,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -4842502818191331096, guid: 15bf30a0ef7128944993ab8f179157c7, type: 3}
+  m_Sprite: {fileID: -1151476768703992692, guid: 7f833ee1bc8c9624ba75f42d240db423, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5683,7 +5683,7 @@ GameObject:
   - component: {fileID: 1758700546}
   - component: {fileID: 1758700545}
   m_Layer: 5
-  m_Name: slotPurple
+  m_Name: slotOrange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7671,7 +7671,7 @@ MonoBehaviour:
   spriteGreen: {fileID: -5202931320459354142, guid: f89fa853387dce84bb408266f8320792, type: 3}
   spriteBlue: {fileID: 6678347035621376754, guid: d633c31705a1ffd49a53a110917144ea, type: 3}
   spriteYellow: {fileID: 4889173615261959219, guid: c5581be78eb752a4b869da418c1b8b5f, type: 3}
-  spritePurple: {fileID: 4479287004057805570, guid: ee17f4c560f5c024eb8a294c0b48ce62, type: 3}
+  spriteOrange: {fileID: -2000626146266616862, guid: 77129154beee1bd479b1d3ba1b86cff5, type: 3}
   spriteWhite: {fileID: -5298263113455871098, guid: 7b347fd18bb1ddb42b0f54d250fefbf4, type: 3}
   spriteCyan: {fileID: -2163582774935881216, guid: 214f07c204b3596428d720ee4691ab8c, type: 3}
   spritePink: {fileID: 4348835814570412848, guid: 80bd3df000ac6f84dbb94a237bd2fa8b, type: 3}
