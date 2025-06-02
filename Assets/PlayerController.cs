@@ -13,9 +13,12 @@ public class TopDownMovement : MonoBehaviour
 
     public Camera camera1;
     //map
-    public bool mapOpen;
-    public bool movementAllowed;
-    public Vector3 currentCamera;
+    public class Map : MonoBehaviour
+    {
+        public bool mapOpen;
+        public bool movementAllowed;
+        public Vector3 currentCamera;
+    }
 
     public Image slotBlue;
     public Image slotGreen;
@@ -157,8 +160,9 @@ public class TopDownMovement : MonoBehaviour
             if (!mapOpen)
             {
                 movementAllowed = false;
+                
                 currentCamera = camera1.transform.position;
-                camera1.transform.position = new Vector3(60, 30, -40);
+                camera1.transform.position = new Vector3(60, 30, -10);
                 camera1.orthographicSize = 40;
                 mapOpen = true;
             }

@@ -622,6 +622,9 @@ MonoBehaviour:
   moveSpeed: 10
   rotationSpeed: 720
   camera1: {fileID: 519420031}
+  mapOpen: 0
+  movementAllowed: 0
+  currentCamera: {x: 0, y: 0, z: 0}
   slotBlue: {fileID: 1243330112}
   slotGreen: {fileID: 474450024}
   slotWhite: {fileID: 2132782089}

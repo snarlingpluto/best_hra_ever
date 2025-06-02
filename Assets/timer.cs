@@ -17,6 +17,7 @@ public class CountdownTimer : MonoBehaviour
         {
             totalTime = 0;
             DisplayTime(totalTime);
+            //movementAllowed = false;
         }
     }
 
