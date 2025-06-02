@@ -12,6 +12,10 @@ public class TopDownMovement : MonoBehaviour
     private Vector2 movement;
 
     public Camera camera1;
+    //map
+    public bool mapOpen;
+    public bool movementAllowed;
+    public Vector3 currentCamera;
 
     public Image slotBlue;
     public Image slotGreen;
@@ -93,6 +97,9 @@ public class TopDownMovement : MonoBehaviour
         }
 
         currentCrates = 0;
+        currentCamera = new Vector3(0, 0, -10);
+        movementAllowed = true;
+        mapOpen = false;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -144,11 +151,33 @@ public class TopDownMovement : MonoBehaviour
             Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, movement);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
         }
+        //map camera shift
+        if (Input.GetKeyUp(KeyCode.M))
+        {
+            if (!mapOpen)
+            {
+                movementAllowed = false;
+                currentCamera = camera1.transform.position;
+                camera1.transform.position = new Vector3(60, 30, -40);
+                camera1.orthographicSize = 40;
+                mapOpen = true;
+            }
+            else
+            {
+                movementAllowed = true;
+                camera1.transform.position = currentCamera;
+                camera1.orthographicSize = 10;
+                mapOpen = false;
+            }
+        }
     }
 
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        if (movementAllowed)
+        {
+            rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        }
     }
 
     // ✅ Utility to restore slot color
