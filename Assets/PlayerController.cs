@@ -56,6 +56,11 @@ public class TopDownMovement : MonoBehaviour
     private Dictionary<string, Sprite> crateMap;
     private Dictionary<string, System.Action<Collider2D>> spriteSetters;
 
+    //mapa
+    public currentCamera = new Vector3(0, 0, -10);
+    public movementAllowed = true;
+    public mapOpen = false;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -100,9 +105,7 @@ public class TopDownMovement : MonoBehaviour
         }
 
         currentCrates = 0;
-        currentCamera = new Vector3(0, 0, -10);
-        movementAllowed = true;
-        mapOpen = false;
+
     }
 
     void OnTriggerEnter2D(Collider2D collision)
