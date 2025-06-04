@@ -100,7 +100,9 @@ public class TopDownMovement : MonoBehaviour
         }
 
         currentCrates = 0;
-
+        movementAllowed = true;
+        currentCamera = new Vector3(0, 0, -10);
+        mapOpen = false;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
