@@ -13,12 +13,12 @@ public class TopDownMovement : MonoBehaviour
 
     public Camera camera1;
     //map
-    public class Map : MonoBehaviour
-    {
+    //public class Map : MonoBehaviour
+    //{
         public bool mapOpen;
         public bool movementAllowed;
         public Vector3 currentCamera;
-    }
+    //}
 
     public Image slotBlue;
     public Image slotGreen;
@@ -55,11 +55,6 @@ public class TopDownMovement : MonoBehaviour
     private Dictionary<string, Image> slotMap;
     private Dictionary<string, Sprite> crateMap;
     private Dictionary<string, System.Action<Collider2D>> spriteSetters;
-
-    //mapa
-    public currentCamera = new Vector3(0, 0, -10);
-    public movementAllowed = true;
-    public mapOpen = false;
 
     void Start()
     {
