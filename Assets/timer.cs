@@ -3,9 +3,15 @@ using TMPro;
 
 public class CountdownTimer : MonoBehaviour
 {
-    public float totalTime = 90f; 
+    public float totalTime = 5f; 
     public TMP_Text timerText;
+    private PlayerMovement playerMovement;
+    public bool timerEnded = false;
 
+    private void Start()
+    {
+        playerMovement = FindAnyObjectByType<PlayerMovement>();
+    }
     private void Update()
     {
         if (totalTime > 0)
@@ -15,9 +21,13 @@ public class CountdownTimer : MonoBehaviour
         }
         else
         {
-            totalTime = 0;
-            DisplayTime(totalTime);
-            //movementAllowed = false;
+            if (!timerEnded)
+            {
+                totalTime = 0;
+                timerEnded = true;
+                DisplayTime(totalTime);
+                playerMovement.toggleMovement();
+            }
         }
     }
 

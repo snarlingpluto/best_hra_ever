@@ -3,22 +3,16 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class TopDownMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float rotationSpeed;
+    public bool movementAllowed = true;
 
     private Rigidbody2D rb;
     private Vector2 movement;
 
-    public Camera camera1;
-    //map
-    //public class Map : MonoBehaviour
-    //{
-        public bool mapOpen;
-        public bool movementAllowed;
-        public Vector3 currentCamera;
-    //}
+    public Camera mainCamera;
 
     public Image slotBlue;
     public Image slotGreen;
@@ -56,8 +50,9 @@ public class TopDownMovement : MonoBehaviour
     private Dictionary<string, Sprite> crateMap;
     private Dictionary<string, System.Action<Collider2D>> spriteSetters;
 
-    void Start()
+    private void Start()
     {
+        mainCamera = FindAnyObjectByType<Camera>();
         rb = GetComponent<Rigidbody2D>();
 
         slotMap = new Dictionary<string, Image> {
@@ -100,16 +95,13 @@ public class TopDownMovement : MonoBehaviour
         }
 
         currentCrates = 0;
-        movementAllowed = true;
-        currentCamera = new Vector3(0, 0, -10);
-        mapOpen = false;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("RoomTransport"))
         {
-            camera1.transform.position = collision.transform.position + new Vector3(0, 0, -10);
+            mainCamera.transform.position = collision.transform.position + new Vector3(0, 0, -10);
             return;
         }
 
@@ -143,7 +135,7 @@ public class TopDownMovement : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
@@ -154,25 +146,16 @@ public class TopDownMovement : MonoBehaviour
             Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, movement);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
         }
-        //map camera shift
-        if (Input.GetKeyUp(KeyCode.M))
+    }
+    public void toggleMovement()
+    {
+        if (movementAllowed)
         {
-            if (!mapOpen)
-            {
-                movementAllowed = false;
-                
-                currentCamera = camera1.transform.position;
-                camera1.transform.position = new Vector3(60, 30, -10);
-                camera1.orthographicSize = 40;
-                mapOpen = true;
-            }
-            else
-            {
-                movementAllowed = true;
-                camera1.transform.position = currentCamera;
-                camera1.orthographicSize = 10;
-                mapOpen = false;
-            }
+            movementAllowed = false;
+        }
+        else
+        {
+            movementAllowed = true;
         }
     }
 
@@ -201,3 +184,4 @@ public class TopDownMovement : MonoBehaviour
         };
     }
 }
+
