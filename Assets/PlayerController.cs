@@ -54,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
     {
         mainCamera = FindAnyObjectByType<Camera>();
         rb = GetComponent<Rigidbody2D>();
+        movementAllowed = true;
 
         slotMap = new Dictionary<string, Image> {
             { "Blue", slotBlue },
@@ -152,10 +153,12 @@ public class PlayerMovement : MonoBehaviour
         if (movementAllowed)
         {
             movementAllowed = false;
+            Debug.Log("mvement lcked");
         }
         else
         {
             movementAllowed = true;
+            Debug.Log("mvement unlcked");
         }
     }
 

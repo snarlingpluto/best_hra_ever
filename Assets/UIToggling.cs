@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 using TMPro;
 
 public class UIToggling : MonoBehaviour
@@ -19,11 +19,11 @@ public class UIToggling : MonoBehaviour
     {
         playerMovement = FindAnyObjectByType<PlayerMovement>();
         mainMenuOpen = true;
-        /* mainMenuToggle(); */
+         mainMenuToggle();
         gameUIOpen = false;
-       /*  gameUI.SetActive = false; */
+         gameUI.SetActive = false; 
         lossMenuOpen = false;
-        /* lossMenu.SetActive = false; */
+         lossMenu.SetActive = false;
 
     }
 
@@ -35,3 +35,4 @@ public class UIToggling : MonoBehaviour
         }
     }
 }
+*/

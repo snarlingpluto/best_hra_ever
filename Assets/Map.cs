@@ -1,3 +1,4 @@
+using System.Threading;
 using UnityEngine;
 
 public class Map : MonoBehaviour
@@ -5,10 +6,13 @@ public class Map : MonoBehaviour
     private PlayerMovement playerMovement;
     public bool mapOpen = false;
     public bool movementAllowed = true;
+    public bool freeMap;
     public Vector3 savedCamera = new Vector3(0, 0, -10);
 
     public void Start()
     {
+        mapOpen = false;
+        freeMap = true;
         playerMovement = FindAnyObjectByType<PlayerMovement>();
     }
 
@@ -20,6 +24,11 @@ public class Map : MonoBehaviour
         {
             if (!mapOpen)
             {
+                if (freeMap)
+                {
+                    freeMap = false;
+                    //Timer = Timer - 20
+                }
                 playerMovement.toggleMovement();
 
                 savedCamera = mainCamera.transform.position;
