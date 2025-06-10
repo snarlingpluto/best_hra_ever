@@ -59,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (!GameStats.firstLoad)
         {
-            if (GameStats.gameLoss)
+            if (!GameStats.gameLoss)
                 GameStats.cooldown = true;
             GameStats.gameLoss = false;
         }
