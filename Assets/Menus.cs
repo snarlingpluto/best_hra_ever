@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEngine.SceneManagement;
 
 public class Menus : MonoBehaviour
 {
@@ -20,11 +19,11 @@ public class Menus : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            toggleMenu();
+            ToggleMenu();
             Debug.Log("LossMenu openen");
         }
     }
-    public void toggleMenu()
+    public void ToggleMenu()
     {
         if (!lossMenuOpen)
         {
@@ -35,7 +34,7 @@ public class Menus : MonoBehaviour
         {
             lossMenu.SetActive(false);
             lossMenuOpen = false;
-             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            playerMovement.ReloadScene();
         }
         
     }

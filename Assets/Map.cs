@@ -4,16 +4,18 @@ using UnityEngine;
 public class Map : MonoBehaviour
 {
     private PlayerMovement playerMovement;
+    private CountdownTimer countdownTimer;
     public bool mapOpen = false;
-    public bool movementAllowed = true;
     public bool freeMap;
     public Vector3 savedCamera = new Vector3(0, 0, -10);
 
     public void Start()
     {
+        playerMovement = FindAnyObjectByType<PlayerMovement>();
+        countdownTimer = FindAnyObjectByType<CountdownTimer>();
         mapOpen = false;
         freeMap = true;
-        playerMovement = FindAnyObjectByType<PlayerMovement>();
+        savedCamera = new Vector3(0, 0, -10);
     }
 
     private void Update()
@@ -27,9 +29,12 @@ public class Map : MonoBehaviour
                 if (freeMap)
                 {
                     freeMap = false;
-                    //Timer = Timer - 20
                 }
-                playerMovement.toggleMovement();
+                else
+                {
+                    countdownTimer.MapTimeDecrease();
+                }
+                playerMovement.ToggleMovement();
 
                 savedCamera = mainCamera.transform.position;
                 mainCamera.transform.position = new Vector3(60, 30, -10);
@@ -39,8 +44,7 @@ public class Map : MonoBehaviour
             }
             else
             {
-                playerMovement.toggleMovement();
-                movementAllowed = true;
+                playerMovement.ToggleMovement();
                 mainCamera.transform.position = savedCamera;
                 mainCamera.orthographicSize = 10;
                 mapOpen = false;

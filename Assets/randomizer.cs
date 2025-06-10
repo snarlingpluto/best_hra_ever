@@ -4,8 +4,10 @@ using System.Linq;
 
 public class SlotManagerColorSprites : MonoBehaviour
 {
-    [Header("Slot GameObjects (16)")]
-    public GameObject[] slotObjects = new GameObject[16];
+    public int cratesPerScene = 8;
+    public int palletes = 15;
+    [Header("Slot GameObjects (15)")]
+    public GameObject[] slotObjects = new GameObject[15];
 
     [Header("Color Sprites")]
     public Sprite spriteRed;
@@ -20,7 +22,7 @@ public class SlotManagerColorSprites : MonoBehaviour
     [Header("Empty Sprite")]
     public Sprite emptySprite;
 
-    private Sprite[] assignedSprites = new Sprite[16];
+    private Sprite[] assignedSprites = new Sprite[15];
 
     void Start()
     {
@@ -42,14 +44,14 @@ public class SlotManagerColorSprites : MonoBehaviour
             spritePink
         };
 
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 7; i++)
         {
             sprites.Add(emptySprite);
         }
 
         sprites = sprites.OrderBy(s => Random.value).ToList();
 
-        for (int i = 0; i < 16; i++)
+        for (int i = 0; i < 15; i++)
         {
             assignedSprites[i] = sprites[i];
         }
@@ -57,7 +59,7 @@ public class SlotManagerColorSprites : MonoBehaviour
 
     void ApplySpriteBehaviors()
     {
-        for (int i = 0; i < 16; i++)
+        for (int i = 0; i < 15; i++)
         {
             GameObject slot = slotObjects[i];
             Sprite sprite = assignedSprites[i];

@@ -1,14 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
+    private CountdownTimer countdownTimer;
     public float moveSpeed = 5f;
     public float rotationSpeed;
-    public bool movementAllowed = true;
-
     private Rigidbody2D rb;
     private Vector2 movement;
 
@@ -52,9 +52,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        countdownTimer = FindAnyObjectByType<CountdownTimer>();
         mainCamera = FindAnyObjectByType<Camera>();
         rb = GetComponent<Rigidbody2D>();
-        movementAllowed = true;
+        GameStats.movementAllowed = true;
+
+        if (!GameStats.firstLoad)
+        {
+            if (GameStats.gameLoss)
+                GameStats.cooldown = true;
+            GameStats.gameLoss = false;
+        }
 
         slotMap = new Dictionary<string, Image> {
             { "Blue", slotBlue },
@@ -98,6 +106,24 @@ public class PlayerMovement : MonoBehaviour
         currentCrates = 0;
     }
 
+    private void Update()
+    {
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
+        movement = movement.normalized;
+
+        if (movement != Vector2.zero)
+        {
+            Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, movement);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+        }
+        if (GameStats.cratesDelivered == 8)
+        {
+            GameStats.level++;
+            ReloadScene();
+        }
+    }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("RoomTransport"))
@@ -131,43 +157,46 @@ public class PlayerMovement : MonoBehaviour
                 renderer.sprite = crateMap[color];
                 renderer.color = Color.white;
                 currentCrates--;
+                GameStats.cratesDelivered++;
                 return;
             }
         }
     }
 
-    private void Update()
+    public void ToggleMovement()
     {
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
-        movement = movement.normalized;
-
-        if (movement != Vector2.zero)
+        if (GameStats.movementAllowed)
         {
-            Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, movement);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
-        }
-    }
-    public void toggleMovement()
-    {
-        if (movementAllowed)
-        {
-            movementAllowed = false;
+            GameStats.movementAllowed = false;
             Debug.Log("mvement lcked");
         }
         else
         {
-            movementAllowed = true;
+            GameStats.movementAllowed = true;
             Debug.Log("mvement unlcked");
+        }
+    }
+        public void ToggleCooldown()
+    {
+        if (GameStats.movementAllowed)
+        {
+            GameStats.cooldown = false;
+        }
+        else
+        {
+            GameStats.cooldown = true;
         }
     }
 
     void FixedUpdate()
     {
-        if (movementAllowed)
+        if (!GameStats.cooldown)
         {
-            rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
-        }
+            if (GameStats.movementAllowed)
+            {
+                rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+            }
+        }    
     }
 
     // ✅ Utility to restore slot color
@@ -185,6 +214,12 @@ public class PlayerMovement : MonoBehaviour
             "Orange" => new Color(0.5f, 0f, 0.5f),
             _ => Color.gray
         };
+    }
+    public void ReloadScene()
+    {
+        GameStats.cratesDelivered = 0;
+        GameStats.firstLoad = false;
+        SceneManager.LoadScene("SampleScene");
     }
 }
 

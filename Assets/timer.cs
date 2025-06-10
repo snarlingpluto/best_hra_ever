@@ -2,41 +2,57 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SocialPlatforms.Impl;
 using System.Data;
+using UnityEngine.SceneManagement;
 
 public class CountdownTimer : MonoBehaviour
 {
-    public float totalTime;
+    public float gameTimer;
     public TMP_Text timerText;
     private PlayerMovement playerMovement;
     private Menus menus;
     public bool timerEnded = false;
+    public float cooldownTimer = 1f;
 
     private void Start()
     {
         playerMovement = FindAnyObjectByType<PlayerMovement>();
         menus = FindAnyObjectByType<Menus>();
-        setTime();
-        totalTime = 90f;
+        /* setTime(); */
+        gameTimer = (120 - (5 * GameStats.level));
     }
     private void Update()
     {
-        if (totalTime > 0)
-        {
-            totalTime -= Time.deltaTime;
-            DisplayTime(totalTime);
-        }
-        else
-        {
-            if (!timerEnded)
+        if (cooldownTimer > 0)
             {
-                totalTime = 0;
-                timerEnded = true;
-                DisplayTime(totalTime);
-                playerMovement.toggleMovement();
-                menus.toggleMenu();
-
+                cooldownTimer -= Time.deltaTime;
             }
+        if (GameStats.cooldown && cooldownTimer <= 0)
+        {
+            GameStats.cooldown = false;
         }
+        if (gameTimer > 0)
+            {
+            if (!GameStats.cooldown)
+            {
+                gameTimer -= Time.deltaTime;
+            }
+                DisplayTime(gameTimer);
+            }
+            else
+            {
+                if (!timerEnded)
+                {
+                    gameTimer = 0;
+                    timerEnded = true;
+                    DisplayTime(gameTimer);
+                    playerMovement.ToggleMovement();
+                    GameStats.maxLevel = GameStats.level;
+                    GameStats.level = 1;
+                    GameStats.gameLoss = true;
+                    menus.ToggleMenu();
+
+                }
+            }
     }
 
     void DisplayTime(float timeToDisplay)
@@ -47,16 +63,21 @@ public class CountdownTimer : MonoBehaviour
 
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
+
+    public void MapTimeDecrease()
+    {
+        gameTimer -= 20;
+    }
     public void setTime()
     {
-       /* if (Score =< 8)
-        {
-            totalTime = 120 - (Score - 8) * 15;
-        }
-        else
-        {
-            totalTime = Score * 15;    
-        } */
+        /* if (GameStats.level =< 8)
+         {
+             gameTimer = 120 - (GameStats.level - 8) * 15;
+         }
+         else
+         {
+             gameTimer = GameStats.level * 15;    
+         } */
     } 
 }
 

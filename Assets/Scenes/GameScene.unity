@@ -975,6 +975,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalTime: 90
   timerText: {fileID: 414575141}
+  timerEnded: 0
 --- !u!114 &414575141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4574,7 +4575,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   rotationSpeed: 720
-  camera1: {fileID: 1879091501}
+  movementAllowed: 1
+  mainCamera: {fileID: 0}
   slotBlue: {fileID: 0}
   slotGreen: {fileID: 0}
   slotWhite: {fileID: 0}
