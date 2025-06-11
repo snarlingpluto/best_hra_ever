@@ -18,7 +18,7 @@ public class CountdownTimer : MonoBehaviour
         playerMovement = FindAnyObjectByType<PlayerMovement>();
         menus = FindAnyObjectByType<Menus>();
         /* setTime(); */
-        gameTimer = 156 - (10 * GameStats.level);
+        gameTimer = 120 - (10 * GameStats.level);
     }
     private void Update()
     {
