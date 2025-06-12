@@ -36,24 +36,16 @@ public class SlotManagerColorSprites : MonoBehaviour
 
     void AssignColorSpritesRandomized()
     {
-        int count = Mathf.Clamp(GameStats.level, 1, assignedSprites.Length);
-        if (GameStats.level == 1)
+        int crateCount = Mathf.Clamp(GameStats.level, 1, assignedSprites.Length);
+        if (GameStats.level < 5)
         {
-            count = 2;
+            crateCount = GameStats.level * 2;
         }
-        if (GameStats.level == 2)
+        else
         {
-            count = 4;
+            crateCount = 8;
         }
-        if (GameStats.level == 3)
-        {
-            count = 6;
-        }
-        if (GameStats.level >= 4)
-        {
-            count = 8;
-        }
-        GameStats.cratesToBeDelivered = count;
+        GameStats.cratesToBeDelivered = crateCount;
         
         List<Sprite> availableColors = new List<Sprite>
         {
@@ -66,7 +58,7 @@ public class SlotManagerColorSprites : MonoBehaviour
 
         // vybereme přesně "count" barev (opakované, pokud potřeba)
         List<Sprite> chosen = new List<Sprite>();
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < crateCount; i++)
             chosen.Add(availableColors[i % availableColors.Count]);
 
         // vytvoříme seznam všech indexů a zamícháme
@@ -76,7 +68,7 @@ public class SlotManagerColorSprites : MonoBehaviour
         for (int i = 0; i < assignedSprites.Length; i++)
             assignedSprites[i] = emptySprite;
 
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < crateCount; i++)
         {
             int slotIndex = allIndexes[i];
             assignedSprites[slotIndex] = chosen[i];

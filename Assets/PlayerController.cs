@@ -56,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
         mainCamera = FindAnyObjectByType<Camera>();
         rb = GetComponent<Rigidbody2D>();
         GameStats.movementAllowed = true;
+        GameStats.maxLevel = GameStats.level;
 
         if (!GameStats.firstLoad)
         {

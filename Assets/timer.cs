@@ -17,7 +17,18 @@ public class CountdownTimer : MonoBehaviour
     {
         playerMovement = FindAnyObjectByType<PlayerMovement>();
         menus = FindAnyObjectByType<Menus>();
-        gameTimer = 40 + (10 * GameStats.level);
+        if (level < 3)
+        {
+            gameTimer = 50 + 5 * (GameStats.level - 1);
+        }
+        if (level < 5 && level > 2)
+        {
+            gameTimer = 105 + 15 * GameStats.level;
+        }
+        if (level > 4)
+        {
+            gameTimer = 165 - 10 * (GameStats.level - 5);
+        }
     }
     private void Update()
     {
@@ -49,21 +60,8 @@ public class CountdownTimer : MonoBehaviour
                 GameStats.level = 1;
                 GameStats.gameLoss = true;
                 menus.ToggleMenu();
-
             }
         }
-        if (Input.GetKeyUp(KeyCode.R))
-                {
-                    gameTimer = 0;
-                    timerEnded = true;
-                    DisplayTime(gameTimer);
-                    playerMovement.ToggleMovement();
-                    GameStats.maxLevel = GameStats.level;
-                    GameStats.level = 1;
-                    GameStats.gameLoss = true;
-                    menus.ToggleMenu();
-
-                }
     }
 
     void DisplayTime(float timeToDisplay)

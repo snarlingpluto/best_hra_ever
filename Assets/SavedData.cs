@@ -11,4 +11,5 @@ public static class GameStats
     public static bool movementAllowed { get; set; } = true;
     public static bool cooldown { get; set; } = false;
     public static bool mainMenuOpen { get; set; } = true;
+    public static bool timerEnded { get; set; } = true;
 }
