@@ -383,10 +383,10 @@ MonoBehaviour:
 
     Press
     [M] to open/close the map, first time is free, all subsequent uses in the round
-    cost you 20 seconds
+    cost you 10 seconds
 
 
-    Time Decreases each round
+    Press[R] to restart
 
 
     Press [Space] to start'
@@ -3391,7 +3391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bbf35f1e07951d4ea8583f7c770bc77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameTimer: 0
+  gameTimer: 100
   timerText: {fileID: 794124901}
   timerEnded: 0
   cooldownTimer: 2
@@ -10932,7 +10932,6 @@ MonoBehaviour:
   - {fileID: 1161191484}
   - {fileID: 1249697598}
   - {fileID: 1553218087}
-  - {fileID: 0}
   spriteRed: {fileID: -1878895801152765008, guid: f2d570c3951f01b4a857e24e19f8311a, type: 3}
   spriteGreen: {fileID: -5202931320459354142, guid: f89fa853387dce84bb408266f8320792, type: 3}
   spriteBlue: {fileID: 6678347035621376754, guid: d633c31705a1ffd49a53a110917144ea, type: 3}
@@ -10941,7 +10940,7 @@ MonoBehaviour:
   spriteWhite: {fileID: -5298263113455871098, guid: 7b347fd18bb1ddb42b0f54d250fefbf4, type: 3}
   spriteCyan: {fileID: -2163582774935881216, guid: 214f07c204b3596428d720ee4691ab8c, type: 3}
   spritePink: {fileID: 4348835814570412848, guid: 80bd3df000ac6f84dbb94a237bd2fa8b, type: 3}
-  emptySprite: {fileID: -3909716901951986375, guid: 9f8d6c991deb1354db6edb066f9523a5, type: 3}
+  emptySprite: {fileID: 2727169238406470956, guid: 6d4d158b32d363c43800c30c3e4bd4d2, type: 3}
 --- !u!4 &1922195493
 Transform:
   m_ObjectHideFlags: 0

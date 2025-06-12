@@ -15,32 +15,48 @@ public class CountdownTimer : MonoBehaviour
 
     private void Start()
     {
+        if (GameStats.level > 8)
+        {
+            GameStats.level = 0;
+        }
         playerMovement = FindAnyObjectByType<PlayerMovement>();
         menus = FindAnyObjectByType<Menus>();
-        /* setTime(); */
-        /*gameTimer = 100 /*- (10 * GameStats.level);*/
+        gameTimer = 30 + (10 * GameStats.level);
     }
     private void Update()
     {
         if (cooldownTimer > 0)
-            {
-                cooldownTimer -= Time.deltaTime;
-            }
+        {
+            cooldownTimer -= Time.deltaTime;
+        }
         if (GameStats.cooldown && cooldownTimer <= 0)
         {
             GameStats.cooldown = false;
         }
         if (gameTimer > 0)
-            {
+        {
             if (!GameStats.cooldown && !GameStats.mainMenuOpen)
             {
                 gameTimer -= Time.deltaTime;
             }
-                DisplayTime(gameTimer);
-            }
-            else
+            DisplayTime(gameTimer);
+        }
+        else
+        {
+            if (!timerEnded)
             {
-                if (!timerEnded)
+                gameTimer = 0;
+                timerEnded = true;
+                DisplayTime(gameTimer);
+                playerMovement.ToggleMovement();
+                GameStats.maxLevel = GameStats.level;
+                GameStats.level = 1;
+                GameStats.gameLoss = true;
+                menus.ToggleMenu();
+
+            }
+        }
+        if (Input.GetKeyUp(KeyCode.R))
                 {
                     gameTimer = 0;
                     timerEnded = true;
@@ -52,7 +68,6 @@ public class CountdownTimer : MonoBehaviour
                     menus.ToggleMenu();
 
                 }
-            }
     }
 
     void DisplayTime(float timeToDisplay)
