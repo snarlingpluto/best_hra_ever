@@ -378,12 +378,12 @@ MonoBehaviour:
     by touching them
 
 
-    Deliver all crates to the designated palette
+    Deliver crates to the designated palettes
 
 
     Press
     [M] to open/close the map, first time is free, all subsequent uses in the round
-    cost you 10 seconds
+    cost you 20 seconds
 
 
     Press[R] to restart
