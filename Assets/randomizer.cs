@@ -6,7 +6,8 @@ public class SlotManagerColorSprites : MonoBehaviour
 {
     public int cratesPerScene = 8;
     public int palletes = 15;
-    [Header("Slot GameObjects (15)")]
+
+    [Header("Slot GameObjects (max 15)")]
     public GameObject[] slotObjects = new GameObject[15];
 
     [Header("Color Sprites")]
@@ -22,105 +23,82 @@ public class SlotManagerColorSprites : MonoBehaviour
     [Header("Empty Sprite")]
     public Sprite emptySprite;
 
-    private Sprite[] assignedSprites = new Sprite[15];
+    private Sprite[] assignedSprites;
 
     void Start()
     {
-        AssignRandomSprites();
+        int total = slotObjects.Length;
+        assignedSprites = new Sprite[total];
+
+        AssignColorSpritesRandomized();
         ApplySpriteBehaviors();
     }
 
-    void AssignRandomSprites()
+    void AssignColorSpritesRandomized()
     {
-        List<Sprite> sprites = new List<Sprite>
+        int count = Mathf.Clamp(GameStats.level, 1, assignedSprites.Length);
+
+        List<Sprite> availableColors = new List<Sprite>
         {
-            spriteRed,
-            spriteGreen,
-            spriteBlue,
-            spriteYellow,
-            spriteOrange,
-            spriteWhite,
-            spriteCyan,
-            spritePink
+            spriteRed, spriteGreen, spriteBlue,
+            spriteYellow, spriteOrange, spriteWhite,
+            spriteCyan, spritePink
         };
 
-        for (int i = 0; i < 7; i++)
-        {
-            sprites.Add(emptySprite);
-        }
+        availableColors = availableColors.OrderBy(_ => Random.value).ToList();
 
-        sprites = sprites.OrderBy(s => Random.value).ToList();
+        // vybereme přesně "count" barev (opakované, pokud potřeba)
+        List<Sprite> chosen = new List<Sprite>();
+        for (int i = 0; i < count; i++)
+            chosen.Add(availableColors[i % availableColors.Count]);
 
-        for (int i = 0; i < 15; i++)
+        // vytvoříme seznam všech indexů a zamícháme
+        List<int> allIndexes = Enumerable.Range(0, assignedSprites.Length).OrderBy(_ => Random.value).ToList();
+
+        // přiřadíme do přiřazených slotů na prvních count pozicích
+        for (int i = 0; i < assignedSprites.Length; i++)
+            assignedSprites[i] = emptySprite;
+
+        for (int i = 0; i < count; i++)
         {
-            assignedSprites[i] = sprites[i];
+            int slotIndex = allIndexes[i];
+            assignedSprites[slotIndex] = chosen[i];
         }
     }
 
     void ApplySpriteBehaviors()
     {
-        for (int i = 0; i < 15; i++)
+        for (int i = 0; i < slotObjects.Length; i++)
         {
             GameObject slot = slotObjects[i];
-            Sprite sprite = assignedSprites[i];
+            SpriteRenderer ren = slot.GetComponent<SpriteRenderer>();
+            Sprite s = assignedSprites[i];
 
-            SpriteRenderer renderer = slot.GetComponent<SpriteRenderer>();
-            if (renderer != null)
-            {
-                renderer.sprite = sprite;
-            }
+            if (ren != null)
+                ren.sprite = s;
 
-            // Tag assignment based on sprite
-            if (sprite == emptySprite)
-            {
+            if (s == emptySprite)
                 slot.tag = "Empty";
-                Debug.Log($"Slot {i + 1} is Empty.");
-            }
-            else if (sprite == spriteRed)
-            {
+            else if (s == spriteRed)
                 slot.tag = "Red";
-                Debug.Log($"Slot {i + 1} is Red.");
-            }
-            else if (sprite == spriteGreen)
-            {
+            else if (s == spriteGreen)
                 slot.tag = "Green";
-                Debug.Log($"Slot {i + 1} is Green.");
-            }
-            else if (sprite == spriteBlue)
-            {
+            else if (s == spriteBlue)
                 slot.tag = "Blue";
-                Debug.Log($"Slot {i + 1} is Blue.");
-            }
-            else if (sprite == spriteYellow)
-            {
+            else if (s == spriteYellow)
                 slot.tag = "Yellow";
-                Debug.Log($"Slot {i + 1} is Yellow.");
-            }
-            else if (sprite == spriteOrange)
-            {
+            else if (s == spriteOrange)
                 slot.tag = "Orange";
-                Debug.Log($"Slot {i + 1} is Purple.");
-            }
-            else if (sprite == spriteWhite)
-            {
+            else if (s == spriteWhite)
                 slot.tag = "White";
-                Debug.Log($"Slot {i + 1} is White.");
-            }
-            else if (sprite == spriteCyan)
-            {
+            else if (s == spriteCyan)
                 slot.tag = "Cyan";
-                Debug.Log($"Slot {i + 1} is Cyan.");
-            }
-            else if (sprite == spritePink)
-            {
+            else if (s == spritePink)
                 slot.tag = "Pink";
-                Debug.Log($"Slot {i + 1} is Pink.");
-            }
             else
-            {
                 slot.tag = "Untagged";
-                Debug.LogWarning($"Slot {i + 1} has an unknown sprite.");
-            }
+
+            Debug.Log($"Slot {i + 1}: sprite = {(s == emptySprite ? "Empty" : s.name)}, tag = {slot.tag}");
         }
     }
 }

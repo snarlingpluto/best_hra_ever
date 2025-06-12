@@ -117,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
             Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, movement);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
         }
-        if (GameStats.cratesDelivered == 8)
+        if (GameStats.cratesDelivered == GameStats.level)
         {
             GameStats.level++;
             ReloadScene();
