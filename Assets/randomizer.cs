@@ -37,7 +37,24 @@ public class SlotManagerColorSprites : MonoBehaviour
     void AssignColorSpritesRandomized()
     {
         int count = Mathf.Clamp(GameStats.level, 1, assignedSprites.Length);
-
+        if (GameStats.level == 1)
+        {
+            count = 2;
+        }
+        if (GameStats.level == 2)
+        {
+            count = 4;
+        }
+        if (GameStats.level == 3)
+        {
+            count = 6;
+        }
+        if (GameStats.level >= 4)
+        {
+            count = 8;
+        }
+        GameStats.cratesToBeDelivered = count;
+        
         List<Sprite> availableColors = new List<Sprite>
         {
             spriteRed, spriteGreen, spriteBlue,

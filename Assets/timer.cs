@@ -15,13 +15,9 @@ public class CountdownTimer : MonoBehaviour
 
     private void Start()
     {
-        if (GameStats.level > 8)
-        {
-            GameStats.level = 0;
-        }
         playerMovement = FindAnyObjectByType<PlayerMovement>();
         menus = FindAnyObjectByType<Menus>();
-        gameTimer = 30 + (10 * GameStats.level);
+        gameTimer = 40 + (10 * GameStats.level);
     }
     private void Update()
     {
@@ -81,7 +77,7 @@ public class CountdownTimer : MonoBehaviour
 
     public void MapTimeDecrease()
     {
-        gameTimer -= 20 + GameStats.level * 2;
+        gameTimer -= 20;
     }
     public void setTime()
     {
