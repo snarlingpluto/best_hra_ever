@@ -37,8 +37,8 @@ public class Map : MonoBehaviour
                 playerMovement.ToggleMovement();
 
                 savedCamera = mainCamera.transform.position;
-                mainCamera.transform.position = new Vector3(60, 30, -10);
-                mainCamera.orthographicSize = 40;
+                mainCamera.transform.position = new Vector3(48, 27, -10);
+                mainCamera.orthographicSize = 36;
                 mapOpen = true;
                 Debug.Log("Map opened");
             }
@@ -46,7 +46,7 @@ public class Map : MonoBehaviour
             {
                 playerMovement.ToggleMovement();
                 mainCamera.transform.position = savedCamera;
-                mainCamera.orthographicSize = 10;
+                mainCamera.orthographicSize = 9;
                 mapOpen = false;
                 Debug.Log("Map closed");
             }
