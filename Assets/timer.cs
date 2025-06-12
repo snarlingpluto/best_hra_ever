@@ -23,11 +23,11 @@ public class CountdownTimer : MonoBehaviour
         }
         if (GameStats.level < 5 && GameStats.level > 2)
         {
-            gameTimer = 105 + 15 * GameStats.level;
+            gameTimer = 55 + 10 * (GameStats.level-3);
         }
         if (GameStats.level > 4)
         {
-            gameTimer = 165 - 10 * (GameStats.level - 5);
+            gameTimer = 165 - 15 * (GameStats.level - 5);
         }
     }
     private void Update()
