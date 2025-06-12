@@ -18,7 +18,7 @@ public class CountdownTimer : MonoBehaviour
         playerMovement = FindAnyObjectByType<PlayerMovement>();
         menus = FindAnyObjectByType<Menus>();
         /* setTime(); */
-        gameTimer = 120 - (10 * GameStats.level);
+        gameTimer = 100 - (10 * GameStats.level);
     }
     private void Update()
     {
@@ -32,7 +32,7 @@ public class CountdownTimer : MonoBehaviour
         }
         if (gameTimer > 0)
             {
-            if (!GameStats.cooldown)
+            if (!GameStats.cooldown && !GameStats.mainMenuOpen)
             {
                 gameTimer -= Time.deltaTime;
             }
