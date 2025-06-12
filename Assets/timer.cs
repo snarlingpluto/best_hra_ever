@@ -56,8 +56,6 @@ public class CountdownTimer : MonoBehaviour
                 timerEnded = true;
                 DisplayTime(gameTimer);
                 playerMovement.ToggleMovement();
-                GameStats.maxLevel = GameStats.level;
-                GameStats.level = 1;
                 GameStats.gameLoss = true;
                 menus.ToggleMenu();
             }

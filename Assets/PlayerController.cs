@@ -60,9 +60,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (!GameStats.firstLoad)
         {
-            if (!GameStats.gameLoss)
-                GameStats.cooldown = true;
-            GameStats.gameLoss = false;
+            if (GameStats.gameLoss)
+            {
+                /* GameStats.cooldown = true; */
+                GameStats.gameLoss = false;
+            }
         }
 
         slotMap = new Dictionary<string, Image> {
