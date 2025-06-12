@@ -17,15 +17,15 @@ public class CountdownTimer : MonoBehaviour
     {
         playerMovement = FindAnyObjectByType<PlayerMovement>();
         menus = FindAnyObjectByType<Menus>();
-        if (level < 3)
+        if (GameStats.level < 3)
         {
             gameTimer = 50 + 5 * (GameStats.level - 1);
         }
-        if (level < 5 && level > 2)
+        if (GameStats.level < 5 && GameStats.level > 2)
         {
             gameTimer = 105 + 15 * GameStats.level;
         }
-        if (level > 4)
+        if (GameStats.level > 4)
         {
             gameTimer = 165 - 10 * (GameStats.level - 5);
         }
