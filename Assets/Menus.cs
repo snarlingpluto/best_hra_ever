@@ -17,11 +17,11 @@ public class Menus : MonoBehaviour
 
     void Update()
     {
-/*         if (Input.GetKeyUp(KeyCode.Space))
+         if (Input.GetKeyUp(KeyCode.Space) && (lossMenuOpen == true))
         {
             ToggleMenu();
-            Debug.Log("LossMenu openen");
-        } */
+            Debug.Log("LossMenu opened");
+         }
     }
     public void ToggleMenu()
     {
